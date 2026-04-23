@@ -10,7 +10,3 @@ class CustomException(BaseException):
         self.error_message = get_error_details(error_message, sys_module)
     def __str__(self):
         return self.error_message
-try:
-    print(1/0)
-except Exception as e:
-    raise CustomException(e,sys)
