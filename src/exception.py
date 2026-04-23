@@ -1,11 +1,16 @@
 import sys
 
-def get_error_details(error_message,error_details):
-    _,_,tb = error_details.exc_info()
-    return f"Unfortunately error occured in file: {tb.tb_frame.f_code.co_filename} on line number: {tb.tb_lineno}, the error is : {str(error_message)} "
+def get_error_details(error_message, sys_mod:sys):
+    _,_,tb = sys_mod.exc_info()
+    file_name = tb.tb_frame.f_code.co_filename
+    return f"There is a error in {file_name}, on line number {tb.tb_lineno} and the message is: {str(error_message)}"
 
-class CustomException(Exception):
-    def __init__(self, error_message, error_details:sys):
-        self.error_message = get_error_details(error_message,error_details)
+class CustomException(BaseException):
+    def __init__(self,error_message, sys_module):
+        self.error_message = get_error_details(error_message, sys_module)
     def __str__(self):
         return self.error_message
+try:
+    print(1/0)
+except Exception as e:
+    raise CustomException(e,sys)
