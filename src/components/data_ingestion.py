@@ -20,6 +20,7 @@ class DataIngestion:
         try:
             df = pd.read_csv("data\\CustomerChurn.csv")
             logging.info("Loaded df")
+            df.drop(["customerID"],axis = 1, inplace=True)
             os.makedirs(os.path.dirname(self.ingestion_config.train_data_path),exist_ok=True)
             df.to_csv(self.ingestion_config.raw_data_path,index=False,header=True)
             train_df,test_df = train_test_split(df,test_size=0.2,random_state=42)
