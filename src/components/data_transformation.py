@@ -9,6 +9,7 @@ from sklearn.pipeline import Pipeline
 from src.utils import save_object
 from src.logger import logging
 import numpy as np
+from imblearn.over_sampling import SMOTE
 
 @dataclass
 class DataTransformationConfig:
@@ -54,8 +55,13 @@ class DataTransformation:
             preprocessor = self.get_preprocessor_obj()
             save_object(file_path = self.preprocessor_path.preprocessor_path, obj = preprocessor)
             preprocessed_train_arr =preprocessor.fit_transform(train_arr_without_target)
+            smote = SMOTE(random_state=42)
+
+            X_train_res, y_train_res = smote.fit_resample(preprocessed_train_arr, train_arr_target)    
+
             preprocessed_test_arr = preprocessor.transform(test_arr_without_target)
-            train_arr = np.c_[preprocessed_train_arr,train_arr_target]
+            train_arr = np.c_[X_train_res,y_train_res]
+            
             test_arr = np.c_[preprocessed_test_arr,test_arr_target]
             logging.info("Preprocessed training and testing data saved")
 

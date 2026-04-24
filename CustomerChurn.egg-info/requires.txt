@@ -6,3 +6,7 @@ seaborn
 dataclasses
 scikit-learn
 dill
+lightgbm
+catboost
+xgboost
+imblearn

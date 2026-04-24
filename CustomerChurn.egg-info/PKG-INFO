@@ -11,6 +11,10 @@ Requires-Dist: seaborn
 Requires-Dist: dataclasses
 Requires-Dist: scikit-learn
 Requires-Dist: dill
+Requires-Dist: lightgbm
+Requires-Dist: catboost
+Requires-Dist: xgboost
+Requires-Dist: imblearn
 Dynamic: author
 Dynamic: author-email
 Dynamic: requires-dist

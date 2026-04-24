@@ -6,6 +6,7 @@ from src.logger import logging
 import pandas as pd
 from src.exception import CustomException
 from src.components.data_transformation import DataTransformation
+from src.components.model_trainer import ModelTraining
 
 @dataclass
 class DataIngestionConfig:
@@ -39,6 +40,7 @@ if __name__ == "__main__":
     train_df, test_df = data_ingestion.initiate_data_ingestion()
 
     data_transformation = DataTransformation()
-    data_transformation.initiate_preprocessing(train_df, test_df)
+    preprocess_train_df,preprocess_test_df,_ = data_transformation.initiate_preprocessing(train_df, test_df)
 
-    
+    model_trainer = ModelTraining()
+    model_trainer.initiate_model_training(preprocess_train_df, preprocess_test_df)
