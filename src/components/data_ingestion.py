@@ -5,6 +5,7 @@ from dataclasses import dataclass
 from src.logger import logging
 import pandas as pd
 from src.exception import CustomException
+from src.components.data_transformation import DataTransformation
 
 @dataclass
 class DataIngestionConfig:
@@ -18,9 +19,8 @@ class DataIngestion:
     
     def initiate_data_ingestion(self):
         try:
-            df = pd.read_csv("notebook\\data\\CustomerChurn.csv")
+            df = pd.read_csv("notebook\\data\\CustomerChurnCleaned.csv")
             logging.info("Loaded df")
-            df.drop(["customerID"],axis = 1, inplace=True)
             os.makedirs(os.path.dirname(self.ingestion_config.train_data_path),exist_ok=True)
             df.to_csv(self.ingestion_config.raw_data_path,index=False,header=True)
             train_df,test_df = train_test_split(df,test_size=0.2,random_state=42)
@@ -36,4 +36,7 @@ class DataIngestion:
         
 if __name__ == "__main__":
     data_ingestion = DataIngestion()
-    data_ingestion.initiate_data_ingestion()
+    train_df, test_df = data_ingestion.initiate_data_ingestion()
+
+    data_transformation = DataTransformation()
+    data_transformation.initiate_preprocessing(train_df, test_df)

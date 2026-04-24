@@ -5,4 +5,5 @@ flask
 seaborn
 dataclasses
 scikit-learn
+dill
 -e .
