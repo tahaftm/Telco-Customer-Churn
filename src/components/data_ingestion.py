@@ -18,7 +18,7 @@ class DataIngestion:
     
     def initiate_data_ingestion(self):
         try:
-            df = pd.read_csv("data\\CustomerChurn.csv")
+            df = pd.read_csv("notebook\\data\\CustomerChurn.csv")
             logging.info("Loaded df")
             df.drop(["customerID"],axis = 1, inplace=True)
             os.makedirs(os.path.dirname(self.ingestion_config.train_data_path),exist_ok=True)
