@@ -40,3 +40,5 @@ if __name__ == "__main__":
 
     data_transformation = DataTransformation()
     data_transformation.initiate_preprocessing(train_df, test_df)
+
+    
