@@ -27,3 +27,10 @@ def evaluate_model(X_train,y_train,X_test,y_test,models:dict, params:dict):
         accuracy = accuracy_score(y_test, test_pred)
         report[name] = accuracy
     return report
+
+def load_object(path):
+    try:
+        with open(path,"rb") as file_obj:
+            return dill.load(file_obj)
+    except Exception as e:
+        CustomException(e,sys)
